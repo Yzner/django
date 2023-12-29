@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'grade-add' %}" class="custom-btn btn btn-primary">Add New Grade</a><br>
+<section class="trainers-container">
+    <table class="styled-table">
+      <tbody>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Student</th>
+            <th scope="col">Course</th>
+            <th scope="col">Assignment SCore</th>
+            <th scope="col">Activity Score</th>
+            <th scope="col">Exam Score</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Status</th>
+            <th>Action</th>
+          </tr>
+        {% for grade in object_list %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ grade.student.first_name }} {{ grade.student.last_name }}</td>
+            <td>{{ grade.course.course_name }}</td>
+            <td>{{ grade.student_score.assignment.score|default:"N/A" }}</td>
+            <td>{{ grade.student_score.activity.score|default:"N/A" }}</td>
+            <td>{{ grade.student_score.exam.score|default:"N/A" }}</td>
+            <td>{{ grade.score }}</td>
+            <td>{% if grade.is_pass %}Pass{% else %}Fail{% endif %}</td>
+            <td>
+              <a href="{% url 'grade-update' grade.grade_id %}">Edit</a> |
+              <a href="{% url 'grade-delete' grade.grade_id %}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</section>
+<div>
+    {% include 'includes/pagination.html' %}
+</div> 
+{% endblock %}

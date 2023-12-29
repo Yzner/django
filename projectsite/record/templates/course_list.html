@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'course-add' %}" class="custom-btn btn btn-primary">Add New Course</a><br>
+<section class="trainers-container">
+    <table class="styled-table">
+      <tbody>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Updated At</th>
+          <th>Action</th>
+        </tr>
+        {% for course in object_list %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ course.course_name }}</td>
+          <td>{{ course.department }}</td>
+          <td>{{ course.created_at }}</td>
+          <td>{{ course.updated_at }}</td>
+          <td>
+            <a href="{% url 'course-update' course.course_id %}">Edit</a> |
+            <a href="{% url 'course-delete' course.course_id %}">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+                <tr>
+                <td colspan="4" style="text-align: center;">
+                    <p>No Records Found</p>
+                </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</section>
+<div>
+    {% include 'includes/pagination.html' %}
+</div> 
+{% endblock %}

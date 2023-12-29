@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <style>
+      body {
+        background-color: #f0f0f0;
+        font-family: 'Roboto Slab', serif;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-brand {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-right: auto;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 0 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 5px;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      #active {
+        background-color: #0056b3;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .home {
+        /* margin-left: 1px; */
+        font-size: 15px;
+        margin-top: 55px;
+      }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
+    <title>{% block title %} GRADING RECORD {% endblock %}</title>
+  </head>
+  <body>
+    <section class="navbar">
+      <span class="navbar-brand">Palawan State University <br>Academic Records</span>
+      <a href="{% url 'home' %}" class="btn" id="active"> Home </a>
+      <a href="{% url 'student-list' %}" class="btn"> Student </a>
+      <a href="{% url 'course-list' %}" class="btn"> Course </a>
+      <a href="{% url 'activity-list' %}" class="btn"> Activity </a>
+      <a href="{% url 'assignment-list' %}" class="btn"> Assignment </a>
+      <a href="{% url 'exam-list' %}" class="btn"> Exam </a>
+      <a href="{% url 'score-list' %}" class="btn"> Records </a>
+      <a href="{% url 'grade-list' %}" class="btn"> Grade </a>
+      
+    </section>
+
+    <main>
+      {% block content %}
+      <div class="home">
+        <h1>Help Students Reach Their Potential.</h1>
+        <h3 style="
+        margin-left: 100px;
+    ">"Achieving Excellence Together"</h3>
+      </div>
+      {% endblock%}
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+  </body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'student-add' %}" class="custom-btn btn btn-primary">Add New Student</a><br>
+<section class="cards-container">
+  {% for student in object_list %}
+    <div class="card-box">
+        <div class="card">
+            <div class="card-type" id="student">
+                <div class="card-image" id="student-img">
+                    {% if student.ProfileImage %}
+                        <img src="{{ student.studentImage.url }}" alt="{{ student.last_name }} {{ student.first_name }} Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+                <div class="card-name">
+                    <h2 class="sbs"> {{ student.last_name }} {{ student.first_name }}</h2>
+                    <hr />
+                </div>
+                <table class="card-stats">
+            <tbody>
+              <tr>
+                <th>Course:</th>
+                <td>
+                  {% for course in student.courses.all %}
+                      {{ course.course_name }} {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+              <tr>
+                <th>Email:</th>
+                <td>{{ student.email }}</td>
+              </tr>
+              <tr>
+                <th>Student Id:</th>
+                <td>{{ student.student_id }}</td>
+              </tr>
+              <tr>
+                <th>Action:</th>
+                <td>
+                  <a href="{% url 'student-update' student.student_id %}" >Edit</a> |
+                  <a href="{% url 'student-delete' student.student_id %}" >Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+      </div>
+    </div>
+  {% endfor %}
+  <div>
+    {% include 'includes/pagination.html' %}
+  </div>
+</section>
+
+{% endblock %}
